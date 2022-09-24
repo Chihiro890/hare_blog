@@ -24,5 +24,6 @@
                 </article>
             @endforeach
         </div>
+        {{ $posts->links() }}
     </div>
 </x-app-layout>
