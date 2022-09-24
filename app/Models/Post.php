@@ -32,8 +32,13 @@ class Post extends Model
 
     public function getImageUrlAttribute()
     {
-        return Storage::url('images/posts/' . $this->image);
+        // return Storage::url('images/posts/' . $this->image);
+        return Storage::url($this->image_path);
+    }
+
+    //     if (!Storage::putFileAs('images/posts', $file, $post->image)) {
+    public function getImagePathAttribute()
+    {
+        return 'images/posts/' . $this->image;
     }
 }
-
-//     if (!Storage::putFileAs('images/posts', $file, $post->image)) {
