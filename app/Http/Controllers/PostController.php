@@ -45,8 +45,10 @@ class PostController extends Controller
         //
         $post = new Post($request->all());
         $post->user_id = $request->user()->id;
-
+        
+// ここから
         $file = $request->file('image');
+        // ファイルがあるかどいか、あれば処理。
         // $post->image = date('YmdHis') . '_' . $file->getClientOriginalName();
         $post->image = self::createFileName($file);
 
@@ -54,7 +56,7 @@ class PostController extends Controller
         // トランザクション開始
         DB::beginTransaction();
         try {
-            // 登録
+            // 登録、保存
             $post->save();
 
             // 画像アップロード
@@ -75,6 +77,7 @@ class PostController extends Controller
             // ->route('posts.show', $post);
             ->route('posts.show', $post)
             ->with('notice', '記事を登録しました');
+// ここまで画像処理の話
     }
 
     /**
@@ -85,9 +88,11 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::find($id);
+    // withは~~で使えないので、loadを使う
+        $post = Post::with(['user'])->find($id);
+        $comments = $post->comments()->latest()->get()->load(['user']);
 
-        return view('posts.show', compact('post'));
+        return view('posts.show', compact('post', 'comments'));
     }
 
     /**
@@ -98,7 +103,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        // 
         $post = Post::find($id);
 
         return view('posts.edit', compact('post'));

@@ -50,4 +50,10 @@ class User extends Authenticatable
      {
          return $this->hasMany(Comment::class);
      }
+
+     public function identityProvider()
+     {
+         return $this->hasOne(IdentityProvider::class);
+     }
+
 }

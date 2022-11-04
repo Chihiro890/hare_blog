@@ -14,7 +14,7 @@
                     class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full py-2 px-3"
                     required placeholder="本文">{{ old('body') }}</textarea>
             </div>
-            <input type="submit" value="登録"
+            <input type="submit" value="更新"
                 class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
         </form>
     </div>
